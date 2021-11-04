@@ -66,13 +66,13 @@ while(True):
     print('\n')
 
     print(index)
-    print(review)
     annotatedReview = {}
     annotatedReview['index'] = index
     annotatedReview['reviewText'] = review
 
     aspectList = []
     while(True):
+        print(review)
         print('Identify existing aspect categories based on list below: ')
         for cat in aspectCatList:
             print('    ' + cat)
