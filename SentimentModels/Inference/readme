@@ -1,3 +1,4 @@
 1. pls convert 7z to normal file
 2. trained spacy2.2.4 API is"https://danieltanhx.pythonanywhere.com/?input=this shirt is not bad" 
 which will last until Monday 31 January 2022
+3. model_artifacts.7z is trained on Amazon fashion datasets and model_artifacts.7z is trained on Shopee Datasets
