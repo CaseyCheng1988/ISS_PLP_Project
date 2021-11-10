@@ -1,0 +1,3 @@
+Data used was the AMAZON_FASHION data from http://jmcauley.ucsd.edu/data/amazon/
+
+Full data has to be requested directly from the author.
