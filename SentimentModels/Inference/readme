@@ -1,4 +1,5 @@
 1. trained spacy2.2.4 full_amazon_inference API is"https://danieltanhx.pythonanywhere.com/?input=this shirt is not bad" 
 2. trained spacy2.2.4 aspect_shopee_inference API is"https://danieltanhx2.pythonanywhere.com/?input=this shirt is not bad" 
 which will last until Monday 31 January 2022
+3.async_requests_multihreading_API.ipynb is the code which allows asynchronise requests instead of sequential requests
 
