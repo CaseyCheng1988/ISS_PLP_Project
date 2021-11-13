@@ -8,7 +8,10 @@ import pickle as pk
 class Sentiment_Analysis_TOAD:
 
     def __init__(self):
-        folderpath = Path(os.getcwd()).absolute()
+        full_path = Path(os.path.realpath(__file__))
+        print(full_path)
+        folderpath, _ = os.path.split(full_path)
+        folderpath = Path(folderpath)
         self.amazon_model_folderpath = folderpath.joinpath("Full_Amazon")
 
         filename = 'vectorizer_full_amazon.pk'
