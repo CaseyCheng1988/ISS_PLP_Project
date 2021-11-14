@@ -1,4 +1,4 @@
-1. trained spacy2.2.4 full_amazon_inference API is"https://danieltanhx.pythonanywhere.com/?input=this shirt is not bad" 
+1. trained spacy2.2.4 full_amazon_inference API is "https://sentiment.danielthx.repl.co/input/this shirt is not bad" or "https://danieltanhx.pythonanywhere.com/?input=this shirt is not bad" 
 2. trained spacy2.2.4 aspect_shopee_inference API is"https://danieltanhx2.pythonanywhere.com/?input=this shirt is not bad" 
 which will last until Monday 31 January 2022
 3. uptimerobot has been set up in case there is a downtime for above api's
