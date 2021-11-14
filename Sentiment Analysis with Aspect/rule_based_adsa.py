@@ -210,11 +210,11 @@ class Rule_Based_ADSA:
 										
 					#Guessing when improper grammer is used (i.e. Colour of the dress was beautiful vs also dress colour beautiful)
 					else:
-						trace = f"Guessing for Adjective: {adjective}\n"
+						trace = f"Finding noun subject for Adjective: {adjective}\n"
 						start = self.find_span_start(sent, adjective)
 						end = self.find_span_end(sent, adjective)
 						extract = sent[start:end]
-						trace += f"Extract: {extract}"
+						trace += f"Extract: {extract}\n"
 
 						for token in extract:
 							if token.pos_ == "NOUN" and token.dep_ == "nsubj":
@@ -228,8 +228,9 @@ class Rule_Based_ADSA:
 				if isFound:
 					topic = self.match_topics(noun, adjective, self.topic_list, self.noun_keywords, self.adjective_keywords)
 				else:
+					trace += f"Matching adjective without noun for Adjective: {adjective}"
 					noun_subj = None
-					topic = self.match_topics(self.nlp("I")[0], adjective, topic_list, noun_keywords, adjective_keywords)
+					topic = self.match_topics(self.nlp("I")[0], adjective, self.topic_list, self.noun_keywords, self.adjective_keywords)
 
 				if topic != None:
 					if noun_subj == None:                    
@@ -252,6 +253,7 @@ class Rule_Based_ADSA:
 					topic_prediction[topic] = prediction
 
 				if DEBUG:
+					print(f"Trace: {trace}")
 					print(f"Descriptor_pair: {descriptor_pair}")
 					print("")
 
@@ -265,8 +267,16 @@ class Rule_Based_ADSA:
 if __name__ == "__main__":
 
 	DEBUG = True
-	SENTI_MODEL = "logreg"
-	review = "This is a nice shirt"
+	SENTI_MODEL = "spacy"
+	review1 = "It was a very beautiful dress"
+	review2 = "The maxi dress was very beautiful"
+	review3 = "Very beautiful"
+
 
 	rule_based_ADSA = Rule_Based_ADSA()
-	rule_based_ADSA.rule_based_ADSA_model(review, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL)
+	print(rule_based_ADSA.rule_based_ADSA_model(review1, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review2, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review3, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
