@@ -265,11 +265,11 @@ class Rule_Based_ADSA:
 						
 
 					descriptor_pair.append((descriptor, noun_subj, negation_tag, topic, prediction))
-					topic_prediction[topic] = prediction
 
 				if DEBUG:
 					print(f"Trace: {trace}")
-					print(f"Descriptor_pair: {(descriptor, noun_subj, negation_tag, topic, prediction)}")
+					if topic != None:
+						print(f"Descriptor_pair: {(descriptor, noun_subj, negation_tag, topic, prediction)}")
 					print("")
 
 		if DEBUG:
@@ -304,6 +304,7 @@ if __name__ == "__main__":
 	review1 = "It was a very beautiful dress"
 	review2 = "The maxi dress was very beautiful"
 	review3 = "Very beautiful"
+	review4 = "The dress is very pretty, but it runs very small in the waist and very large in the bust. If you're not an extreme hour-glass, be prepared to alter this before wearing it. I'm short, so I plan to take some fabric either from the hem or the oversized bust to redistribute as needed, personally. Not as comfortable as some of the other items I've gotten from SheIn before - the fabric is a little scratchier than anticipated - but it does flow nicely when you move around."
 
 	rule_based_ADSA = Rule_Based_ADSA()
 	print(rule_based_ADSA.rule_based_ADSA_model(review1, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
@@ -311,4 +312,6 @@ if __name__ == "__main__":
 	print(rule_based_ADSA.rule_based_ADSA_model(review2, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
 	print("---------------------------------------------------------------")
 	print(rule_based_ADSA.rule_based_ADSA_model(review3, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review4, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
 	print("---------------------------------------------------------------")
