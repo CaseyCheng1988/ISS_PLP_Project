@@ -148,11 +148,25 @@ class Rule_Based_ADSA:
 							'price'         : None, 
 							'delivery'      : None}
 
+		topic_positive = {'size'          : 0.0,
+						'comfort'     	  : 0.0,
+						'appearance'  	  : 0.0,
+						'quality'     	  : 0.0,
+						'price'       	  : 0.0, 
+						'delivery'    	  : 0.0}
+	
+		topic_total = {'size'             : 0.0,
+						'comfort'     	  : 0.0,
+						'appearance'  	  : 0.0,
+						'quality'     	  : 0.0,
+						'price'       	  : 0.0, 
+						'delivery'    	  : 0.0}
+
 		sent_count = 0
+		descriptor_pair = []
 		for sent in doc.sents:
 			sent_count += 1
 
-			descriptor_pair = []
 			adjectives = [tok for tok in sent if tok.pos_ == "ADJ"]
 			pronouns = [tok for tok in sent if tok.pos_ == "PRON"]
 			nouns = [tok for tok in sent if tok.pos_ == "NOUN"]
@@ -167,6 +181,7 @@ class Rule_Based_ADSA:
 				print(f"Nouns: {nouns}")
 				print(f"Pronouns: {pronouns}")
 				print(f"Negations: {negations}")
+				print("")
 
 			for adjective in adjectives:
 				isFound = False
@@ -254,8 +269,26 @@ class Rule_Based_ADSA:
 
 				if DEBUG:
 					print(f"Trace: {trace}")
-					print(f"Descriptor_pair: {descriptor_pair}")
+					print(f"Descriptor_pair: {(descriptor, noun_subj, negation_tag, topic, prediction)}")
 					print("")
+
+		if DEBUG:
+			print(f"All descriptor_pair: {descriptor_pair}")
+			print("")
+		
+		for pair in descriptor_pair:
+			topic_total[pair[3]] += 1
+			if pair[4] == "Positive":
+				topic_positive[pair[3]] += 1
+				
+		for topic in self.topic_list:
+			if topic_total[topic] != 0 and (topic_positive[topic] / topic_total[topic]) >= 0.5:
+				topic_prediction[topic] = "Positive"
+			elif topic_total[topic] != 0 and (topic_positive[topic] / topic_total[topic]) < 0.5:
+				topic_prediction[topic] = "Negative"
+			else:
+				topic_prediction[topic] = None
+
 
 		print(f"Review: {review}")
 		print(f"Topic_prediction: {topic_prediction}")
@@ -271,7 +304,6 @@ if __name__ == "__main__":
 	review1 = "It was a very beautiful dress"
 	review2 = "The maxi dress was very beautiful"
 	review3 = "Very beautiful"
-
 
 	rule_based_ADSA = Rule_Based_ADSA()
 	print(rule_based_ADSA.rule_based_ADSA_model(review1, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
