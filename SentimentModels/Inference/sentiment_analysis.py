@@ -9,7 +9,6 @@ class Sentiment_Analysis_TOAD:
 
     def __init__(self):
         full_path = Path(os.path.realpath(__file__))
-        print(full_path)
         folderpath, _ = os.path.split(full_path)
         folderpath = Path(folderpath)
         self.amazon_model_folderpath = folderpath.joinpath("Full_Amazon")
@@ -26,9 +25,10 @@ class Sentiment_Analysis_TOAD:
         filepath = self.amazon_model_folderpath.joinpath(filename)
         self.SVM_loaded_model = pk.load(open(filepath, 'rb'))
 
-        self.spacy_URL_start = 'https://danieltanhx.pythonanywhere.com/?input='
+        self.spacy_URL_start_primary = 'https://sentiment.danielthx.repl.co/input/'
+        self.spacy_URL_start_secondary = 'https://danieltanhx.pythonanywhere.com/?input='
 
-    def logreg_model(self, TEST_REVIEW, negation_tag):
+    def logreg_model(self, TEST_REVIEW, negation_tag=False):
         test_vectors = self.vectorizer.transform([TEST_REVIEW])
         predME = self.logres_loaded_model.predict(test_vectors)
         pred = list(predME)
@@ -47,7 +47,7 @@ class Sentiment_Analysis_TOAD:
         return prediction
 
 
-    def SVM_model(self, TEST_REVIEW, negation_tag):
+    def SVM_model(self, TEST_REVIEW, negation_tag=False):
         test_vectors = self.vectorizer.transform([TEST_REVIEW])
         predME = self.SVM_loaded_model.predict(test_vectors)
         pred = list(predME)
@@ -65,21 +65,37 @@ class Sentiment_Analysis_TOAD:
 
         return prediction
 
-    def spacy_model(self, TEST_REVIEW, negation_tag):
-        url = self.spacy_URL_start + str(TEST_REVIEW)
+    def spacy_model(self, TEST_REVIEW, negation_tag=False):
+        url_primary = self.spacy_URL_start_primary + str(TEST_REVIEW)
+        url_secondary = self.spacy_URL_start_secondary + str(TEST_REVIEW)
         
-        r = requests.get(url)
-        pred = json.loads(r.text)["Predicted sentiment"]
-        
-        if negation_tag:
-            if pred == 'Positive':
-                prediction = 'Negative'
-            elif pred == 'Negative':
-                prediction = 'Positive'
-        else:
-            prediction = pred
-        
-        return prediction
+        try:
+            r = requests.get(url_primary)
+            pred = json.loads(r.text)["Predicted sentiment"]
+            
+            if negation_tag:
+                if pred == 'Positive':
+                    prediction = 'Negative'
+                elif pred == 'Negative':
+                    prediction = 'Positive'
+            else:
+                prediction = pred
+            
+            return prediction
+
+        except:
+            r = requests.get(url_secondary)
+            pred = json.loads(r.text)["Predicted sentiment"]
+            
+            if negation_tag:
+                if pred == 'Positive':
+                    prediction = 'Negative'
+                elif pred == 'Negative':
+                    prediction = 'Positive'
+            else:
+                prediction = pred
+            
+            return prediction
 
 
 if __name__ == "__main__":

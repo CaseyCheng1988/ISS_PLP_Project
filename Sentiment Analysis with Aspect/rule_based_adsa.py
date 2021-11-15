@@ -148,11 +148,25 @@ class Rule_Based_ADSA:
 							'price'         : None, 
 							'delivery'      : None}
 
+		topic_positive = {'size'          : 0.0,
+						'comfort'     	  : 0.0,
+						'appearance'  	  : 0.0,
+						'quality'     	  : 0.0,
+						'price'       	  : 0.0, 
+						'delivery'    	  : 0.0}
+	
+		topic_total = {'size'             : 0.0,
+						'comfort'     	  : 0.0,
+						'appearance'  	  : 0.0,
+						'quality'     	  : 0.0,
+						'price'       	  : 0.0, 
+						'delivery'    	  : 0.0}
+
 		sent_count = 0
+		descriptor_pair = []
 		for sent in doc.sents:
 			sent_count += 1
 
-			descriptor_pair = []
 			adjectives = [tok for tok in sent if tok.pos_ == "ADJ"]
 			pronouns = [tok for tok in sent if tok.pos_ == "PRON"]
 			nouns = [tok for tok in sent if tok.pos_ == "NOUN"]
@@ -167,6 +181,7 @@ class Rule_Based_ADSA:
 				print(f"Nouns: {nouns}")
 				print(f"Pronouns: {pronouns}")
 				print(f"Negations: {negations}")
+				print("")
 
 			for adjective in adjectives:
 				isFound = False
@@ -210,11 +225,11 @@ class Rule_Based_ADSA:
 										
 					#Guessing when improper grammer is used (i.e. Colour of the dress was beautiful vs also dress colour beautiful)
 					else:
-						trace = f"Guessing for Adjective: {adjective}\n"
+						trace = f"Finding noun subject for Adjective: {adjective}\n"
 						start = self.find_span_start(sent, adjective)
 						end = self.find_span_end(sent, adjective)
 						extract = sent[start:end]
-						trace += f"Extract: {extract}"
+						trace += f"Extract: {extract}\n"
 
 						for token in extract:
 							if token.pos_ == "NOUN" and token.dep_ == "nsubj":
@@ -228,8 +243,9 @@ class Rule_Based_ADSA:
 				if isFound:
 					topic = self.match_topics(noun, adjective, self.topic_list, self.noun_keywords, self.adjective_keywords)
 				else:
+					trace += f"Matching adjective without noun for Adjective: {adjective}"
 					noun_subj = None
-					topic = self.match_topics(self.nlp("I")[0], adjective, topic_list, noun_keywords, adjective_keywords)
+					topic = self.match_topics(self.nlp("I")[0], adjective, self.topic_list, self.noun_keywords, self.adjective_keywords)
 
 				if topic != None:
 					if noun_subj == None:                    
@@ -249,11 +265,30 @@ class Rule_Based_ADSA:
 						
 
 					descriptor_pair.append((descriptor, noun_subj, negation_tag, topic, prediction))
-					topic_prediction[topic] = prediction
 
 				if DEBUG:
-					print(f"Descriptor_pair: {descriptor_pair}")
+					print(f"Trace: {trace}")
+					if topic != None:
+						print(f"Descriptor_pair: {(descriptor, noun_subj, negation_tag, topic, prediction)}")
 					print("")
+
+		if DEBUG:
+			print(f"All descriptor_pair: {descriptor_pair}")
+			print("")
+		
+		for pair in descriptor_pair:
+			topic_total[pair[3]] += 1
+			if pair[4] == "Positive":
+				topic_positive[pair[3]] += 1
+				
+		for topic in self.topic_list:
+			if topic_total[topic] != 0 and (topic_positive[topic] / topic_total[topic]) >= 0.5:
+				topic_prediction[topic] = "Positive"
+			elif topic_total[topic] != 0 and (topic_positive[topic] / topic_total[topic]) < 0.5:
+				topic_prediction[topic] = "Negative"
+			else:
+				topic_prediction[topic] = None
+
 
 		print(f"Review: {review}")
 		print(f"Topic_prediction: {topic_prediction}")
@@ -265,8 +300,18 @@ class Rule_Based_ADSA:
 if __name__ == "__main__":
 
 	DEBUG = True
-	SENTI_MODEL = "logreg"
-	review = "This is a nice shirt"
+	SENTI_MODEL = "spacy"
+	review1 = "It was a very beautiful dress"
+	review2 = "The maxi dress was very beautiful"
+	review3 = "Very beautiful"
+	review4 = "The dress is very pretty, but it runs very small in the waist and very large in the bust. If you're not an extreme hour-glass, be prepared to alter this before wearing it. I'm short, so I plan to take some fabric either from the hem or the oversized bust to redistribute as needed, personally. Not as comfortable as some of the other items I've gotten from SheIn before - the fabric is a little scratchier than anticipated - but it does flow nicely when you move around."
 
 	rule_based_ADSA = Rule_Based_ADSA()
-	rule_based_ADSA.rule_based_ADSA_model(review, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL)
+	print(rule_based_ADSA.rule_based_ADSA_model(review1, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review2, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review3, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
+	print(rule_based_ADSA.rule_based_ADSA_model(review4, DEBUG = DEBUG, SENTI_MODEL = SENTI_MODEL))
+	print("---------------------------------------------------------------")
