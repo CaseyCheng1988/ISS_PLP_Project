@@ -14,7 +14,7 @@ folderpath, _ = os.path.split(full_path)
 folderpath = Path(folderpath)
 model_folderpath = folderpath.parent.joinpath("SentimentModels").joinpath("Inference")
 sys.path.insert(1, str(model_folderpath))
-from sentiment_analysis import Sentiment_Analysis_TOAD
+from SentimentModels.Inference.sentiment_analysis import Sentiment_Analysis_TOAD
 
 class Rule_Based_ADSA:
 
