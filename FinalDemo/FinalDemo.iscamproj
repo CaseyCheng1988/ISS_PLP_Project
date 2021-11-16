@@ -1,0 +1,324 @@
+{
+ "version": {
+  "fileVersion": 3,
+  "compatibilityVersion": 0
+ },
+ "privateFolder": "Data",
+ "props": {
+  "canvasSize": {
+   "w": 1920,
+   "h": 1080
+  },
+  "fillSt": {
+   "color": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+   }
+  },
+  "cursor": {
+   "visible": true,
+   "bgHighlight": {
+    "visible": true,
+    "color": {
+     "r": 1,
+     "g": 0.812,
+     "b": 0.235,
+     "a": 0.5
+    }
+   },
+   "leftClickHighlight": {
+    "visible": true,
+    "color": {
+     "r": 0.929,
+     "g": 0.11,
+     "b": 0.141,
+     "a": 0.5
+    }
+   },
+   "rightClickHighlight": {
+    "visible": true,
+    "color": {
+     "r": 0.047,
+     "g": 0.325,
+     "b": 0.612,
+     "a": 0.5
+    }
+   },
+   "highlightEnabled": true
+  }
+ },
+ "files": [
+  {
+   "id": "f0",
+   "path": "Data\\Screen Recording (17.11.2021 03-06-15).sc.a2",
+   "altPath": "C:\\Users\\profx\\Documents\\GitHub\\ISS_PLP_Project\\FinalDemo\\Data\\Screen Recording (17.11.2021 03-06-15).sc.a2",
+   "hash": "8c345604f74e8d237215a551e2080f37acc9039d",
+   "size": "7032796",
+   "modificationTime": "132815631744773193"
+  },
+  {
+   "id": "f1",
+   "path": "Data\\Screen Recording (17.11.2021 03-06-15).sc",
+   "altPath": "C:\\Users\\profx\\Documents\\GitHub\\ISS_PLP_Project\\FinalDemo\\Data\\Screen Recording (17.11.2021 03-06-15).sc",
+   "hash": "6a67002ec208e19182e368d528016f6e99f91831",
+   "size": "140857840",
+   "modificationTime": "132815631745172145"
+  },
+  {
+   "id": "f2",
+   "path": "Data\\Screen Recording (17.11.2021 03-06-15).sc.a1",
+   "altPath": "C:\\Users\\profx\\Documents\\GitHub\\ISS_PLP_Project\\FinalDemo\\Data\\Screen Recording (17.11.2021 03-06-15).sc.a1",
+   "hash": "4c3e3316d4b2eed0b745edb5e52fe5135300f0ec",
+   "size": "7032796",
+   "modificationTime": "132815631744163888"
+  },
+  {
+   "id": "f3",
+   "path": "Data\\Screen Recording (17.11.2021 03-06-15).sc.userinput",
+   "altPath": "C:\\Users\\profx\\Documents\\GitHub\\ISS_PLP_Project\\FinalDemo\\Data\\Screen Recording (17.11.2021 03-06-15).sc.userinput",
+   "hash": "a34f7680dc5d18d104eefe18889a993d8ca4cd18",
+   "size": "96486",
+   "modificationTime": "132815631744094081"
+  }
+ ],
+ "noiseProfiles": [
+  {
+   "fileId": "f2",
+   "streamProfile": [
+    {
+     "aStreamIdx": 0,
+     "channelProfile": [
+      "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+     ]
+    }
+   ]
+  }
+ ],
+ "volumeNormalizationProfiles": [
+  {
+   "fileId": "f0",
+   "volumeGainProfile": [
+    {
+     "aStreamIdx": 0,
+     "volumeGain": 2.24862409
+    }
+   ]
+  }
+ ],
+ "mediaClips": [
+  {
+   "id": 0,
+   "media": {
+    "videoSrc": [],
+    "audioSrc": [
+     {
+      "m": {
+       "fileId": "f0",
+       "dur": "439544",
+       "aStreamIdx": 0,
+       "vStreamIdx": -1
+      },
+      "t": "Mic"
+     }
+    ],
+    "userInputFileId": "",
+    "disabledAudioSrc": []
+   }
+  },
+  {
+   "id": 1,
+   "media": {
+    "videoSrc": [
+     {
+      "fileId": "f1",
+      "dur": "439501",
+      "aStreamIdx": -1,
+      "vStreamIdx": 0
+     }
+    ],
+    "audioSrc": [
+     {
+      "m": {
+       "fileId": "f2",
+       "dur": "439544",
+       "aStreamIdx": 0,
+       "vStreamIdx": -1
+      },
+      "t": "System"
+     }
+    ],
+    "userInputFileId": "f3",
+    "disabledAudioSrc": []
+   }
+  }
+ ],
+ "tracks": {
+  "track": [
+   {
+    "media": [
+     {
+      "t": "Audio",
+      "tr": {
+       "st": "0",
+       "end": "439500"
+      },
+      "startTr": {
+       "duration": "0",
+       "id": 1,
+       "linkedId": 0
+      },
+      "endTr": {
+       "duration": "0",
+       "id": 2,
+       "linkedId": 0
+      },
+      "name": "",
+      "mediaClipId": 0,
+      "contentTr": {
+       "st": "0",
+       "end": "439500"
+      },
+      "volume": 0,
+      "defaultName": "Screen Recording (17.11.2021 03-06-15)"
+     }
+    ],
+    "name": "",
+    "blocked": false,
+    "hidden": false
+   },
+   {
+    "media": [
+     {
+      "t": "Capture",
+      "tr": {
+       "st": "0",
+       "end": "439500"
+      },
+      "vo": {
+       "frame": {
+        "l": 0,
+        "t": 0,
+        "r": 1920,
+        "b": 1080
+       },
+       "rotZ": 0,
+       "shape": {
+        "type": {
+         "rectangle": {
+          "type": "Normal"
+         }
+        },
+        "adjustments": []
+       },
+       "keepAspectRatio": true,
+       "transparency": 0,
+       "cropInsets": {
+        "l": 0,
+        "t": 0,
+        "r": 0,
+        "b": 0
+       }
+      },
+      "startTr": {
+       "duration": "0",
+       "id": 3,
+       "linkedId": 0
+      },
+      "endTr": {
+       "duration": "0",
+       "id": 4,
+       "linkedId": 0
+      },
+      "name": "",
+      "mediaClipId": 1,
+      "contentTr": {
+       "st": "0",
+       "end": "439500"
+      },
+      "volume": 0,
+      "defaultName": "Screen Recording (17.11.2021 03-06-15)",
+      "effects": {
+       "denoise": {
+        "parameters": {
+         "sensitivity": 8,
+         "smoothBands": 8,
+         "noiseGain": 24
+        }
+       }
+      }
+     }
+    ],
+    "name": "",
+    "blocked": false,
+    "hidden": false
+   }
+  ]
+ },
+ "meta": "{\"publishingSettings\":{\"lastPublishingPath\":\"[[\\\"#n\\\\uFFFD6{6F2959CB-2E77-433D-B4E5-B791F64DC825}\\\",\\\"C:\\\\\\\\Users\\\\\\\\profx\\\\\\\\Documents\\\\\\\\GitHub\\\\\\\\ISS_PLP_Project\\\\\\\\FinalDemo\\\"]]\",\"lmsPublishOptions\":\"{\\\"apiStandard\\\":\\\"AS_SCORM12\\\",\\\"reportStatuses\\\":\\\"RS_PASSED_FAILED\\\",\\\"useXAPIEndpoint\\\":\\\"T_FALSE\\\"}\",\"onlinePublishOptions\":\"{\\\"ispringCloud\\\":{\\\"directoryId\\\":\\\"1\\\"},\\\"ispringLms\\\":{\\\"directoryId\\\":\\\"1\\\"}}\",\"settings\":\"{\\\"commonSettings\\\":{\\\"webSettings\\\":{\\\"useMobileViewer\\\":\\\"T_FALSE\\\",\\\"format\\\":\\\"OF_VIDEO\\\"},\\\"lmsSettings\\\":{\\\"useMobileViewer\\\":\\\"T_FALSE\\\",\\\"format\\\":\\\"OF_VIDEO\\\"},\\\"cloudSettings\\\":{\\\"useMobileViewer\\\":\\\"T_FALSE\\\",\\\"format\\\":\\\"OF_VIDEO\\\"},\\\"ispringLmsSettings\\\":{\\\"useMobileViewer\\\":\\\"T_FALSE\\\",\\\"format\\\":\\\"OF_VIDEO\\\"}},\\\"advancedSettings\\\":{\\\"enableTextAllocation\\\":\\\"T_TRUE\\\",\\\"viewingFromLocalDrive\\\":\\\"T_TRUE\\\",\\\"contentScale\\\":100,\\\"contentScaleMode\\\":\\\"ORIGINAL_SIZE\\\"},\\\"accessibilitySettings\\\":{\\\"enabled\\\":\\\"T_FALSE\\\"},\\\"compressionSettings\\\":{\\\"imageSettings\\\":{\\\"jpegQuality\\\":70,\\\"optimizeImageForResolution\\\":\\\"T_FALSE\\\"},\\\"audioQuality\\\":70,\\\"videoQuality\\\":65},\\\"protectionSettings\\\":{\\\"watermarkEnabled\\\":\\\"T_FALSE\\\",\\\"watermarkPosition\\\":\\\"MIDDLE_CENTER\\\",\\\"openWatermarkUrl\\\":\\\"T_FALSE\\\",\\\"openWatermarkWebPageInNewWindow\\\":\\\"T_FALSE\\\",\\\"displayAfterEnabled\\\":\\\"T_FALSE\\\",\\\"displayUntilEnabled\\\":\\\"T_FALSE\\\",\\\"domainRestrictionEnabled\\\":\\\"T_FALSE\\\"},\\\"videoSettings\\\":{\\\"videoCompressionSettings\\\":{\\\"audioQuality\\\":70,\\\"videoQuality\\\":75},\\\"secondsOnEachSlide\\\":5,\\\"hostingSettings\\\":{}},\\\"ispringOnlineSettings\\\":{\\\"onlineDestinationFolderId\\\":\\\"1\\\"},\\\"cloudSettings\\\":{\\\"onlineDestinationFolderId\\\":\\\"1\\\"},\\\"wordSettings\\\":{\\\"printCopies\\\":1}}\"}}",
+ "currentAnnotationOptions": {
+  "fontColor": {
+   "r": 1,
+   "g": 1,
+   "b": 1,
+   "a": 1
+  },
+  "annotationBgColor": {
+   "r": 0.258823544,
+   "g": 0.474509805,
+   "b": 0.729411781,
+   "a": 0.949019611
+  },
+  "annotationBorderColor": {
+   "r": 0.223529413,
+   "g": 0.380392164,
+   "b": 0.568627477,
+   "a": 0.949019611
+  },
+  "clickedControlBgColor": {
+   "r": 0.121568628,
+   "g": 0.592156887,
+   "b": 0.949019611,
+   "a": 0.501960814
+  },
+  "clickedControlBorderColor": {
+   "r": 0.403921574,
+   "g": 0.701960802,
+   "b": 0.925490201,
+   "a": 1
+  },
+  "fontName": "Segoe UI",
+  "fontSize": 22,
+  "mode": "NoAnnotations"
+ },
+ "defaultShapeStyle": {
+  "fillStyle": {
+   "color": {
+    "r": 0,
+    "g": 0,
+    "b": 0,
+    "a": 0.6
+   }
+  },
+  "lineStyle": {
+   "type": "None",
+   "color": {
+    "r": 0,
+    "g": 0,
+    "b": 0,
+    "a": 0
+   },
+   "width": 1
+  },
+  "textStyle": {
+   "textColor": {
+    "r": 1,
+    "g": 1,
+    "b": 1,
+    "a": 1
+   }
+  },
+  "alpha": 1
+ }
+}
