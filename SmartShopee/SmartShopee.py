@@ -141,9 +141,9 @@ class SmartShopee:
       return output
 
 if __name__ == '__main__':
-    sp = Shopee()
-    prods = sp.product_search("jeans")
+    ss = SmartShopee()
+    prods = ss.product_search("jeans")
     print(prods[:10])
 
-    rev_text = sp.get_review_text(prods[0][0], prods[0][1])
+    rev_text = ss.get_review_text(prods[0][0], prods[0][1])
     print(rev_text[:5])
