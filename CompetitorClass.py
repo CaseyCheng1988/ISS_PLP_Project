@@ -78,7 +78,7 @@ class CompetitorSpace:
         limit = min(limit, int(r.json()['data']['item_rating_summary']['rcount_with_context']))
 
         # Iteratively make requests until desired limit is fulfilled.
-        for i in range(limit // MAX_RESULTS_PER_REQUEST):
+        for i in range(limit // MAX_RESULTS_PER_REQUEST + 1):
             params['offset'] = i * MAX_RESULTS_PER_REQUEST
             r = requests.get(url, headers=self.product_search_header, params=params)
             res += [rating['comment'] for rating in r.json()['data']['ratings']]
