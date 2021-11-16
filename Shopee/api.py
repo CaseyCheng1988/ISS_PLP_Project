@@ -83,9 +83,18 @@ def get_review_text(item_id, shop_id, limit=50):
         res += [rating['comment'] for rating in r.json()['data']['ratings']]
     return res
 
+def get_item_name(item_id, shop_id):
+    url = f'https://shopee.sg/api/v4/item/get?itemid={item_id}&shopid={shop_id}'
+    r = requests.get(url, headers=product_search_header)
+    js = r.json()
+    return js['data']['name']
+
 if __name__ == '__main__':
     prods = product_search("jeans")
     print(prods[:10])
 
-    rev_text = get_review_text(prods[0][0], prods[0][1])
-    print(rev_text[:5])
+    # rev_text = get_review_text(prods[0][0], prods[0][1])
+    # print(rev_text[:5])
+
+    item_name = get_item_name(prods[0][0], prods[0][1])
+    print(item_name)
