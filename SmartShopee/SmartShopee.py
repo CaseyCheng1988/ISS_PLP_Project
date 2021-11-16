@@ -115,7 +115,8 @@ class SmartShopee:
     return competitors
 
 
-  def get_entities(self, text, nlp_model=ner_model):
+  def get_entities(self, text):
+      nlp_model = self.ner_model
       doc = nlp_model(text)
       output = {'BRAND':[], 'MODEL':[], 'TYPE':[], 'VAR_SIZE':[], 'VAR_COLOUR':[],'VAR_QTY':[],'DEMOGRAPHIC':[]}
       buffer = []
