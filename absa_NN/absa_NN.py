@@ -2,7 +2,8 @@ import spacy
 import os
 import sys
 
-main_dir = os.path.dirname(os.getcwd())
+mod_dir = os.path.dirname(__file__)
+main_dir = os.path.dirname(mod_dir)
 sys.path.append(main_dir)
 
 from SentimentModels.Inference.sentiment_analysis import Sentiment_Analysis_TOAD
