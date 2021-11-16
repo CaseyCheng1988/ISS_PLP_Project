@@ -9,10 +9,10 @@ sys.path.append(main_dir)
 from SentimentModels.Inference.sentiment_analysis import Sentiment_Analysis_TOAD
 from collections import Counter
 
-def load_ab_model(path = 'ner_model'):
+def load_ab_model(path = mod_dir + '\\ner_model'):
     return spacy.load(path)
 
-def load_sa_model(path = 'textcat_model'):
+def load_sa_model(path = mod_dir + '\\textcat_model'):
     return spacy.load(path)
 
 def get_aspects(text, nlp_model):
