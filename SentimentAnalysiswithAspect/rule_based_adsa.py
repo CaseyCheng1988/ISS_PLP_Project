@@ -40,17 +40,17 @@ class Rule_Based_ADSA:
 						  'quality'       : ['quality', 'material', 'fabric', 'leather'],
 						  'price'         : ['price', 'money'],
 						  'delivery'      : ['time', 'day', 'seller', 'shipping', 'order']}
-					 
+
 		for topic in self.topic_list:
 			filename = topic + '.csv'
 			filepath = self.wordnet_folderpath.joinpath(topic).joinpath(filename)
-			
+
 			with open(filepath, newline='\n') as f:
 				reader = csv.reader(f)
 				data = list(reader)
 			nouns = noun_keywords[topic] + [pair[0] for pair in data if pair[1] == 'noun']
 			noun_keywords[topic] = list(dict.fromkeys(nouns))
-		
+
 		return noun_keywords
 
 
@@ -65,14 +65,14 @@ class Rule_Based_ADSA:
 		for topic in self.topic_list:
 			filename = topic + '.csv'
 			filepath = self.wordnet_folderpath.joinpath(topic).joinpath(filename)
-			
+
 			with open(filepath, newline='\n') as f:
 				reader = csv.reader(f)
 				data = list(reader)
 			adjectives = adjective_keywords[topic] + [pair[0] for pair in data if pair[1] == 'adj']
 			adjective_keywords[topic] = list(dict.fromkeys(adjectives))
-		
-		return adjective_keywords	
+
+		return adjective_keywords
 
 
 	def find_noun_head(self, token):
@@ -84,7 +84,7 @@ class Rule_Based_ADSA:
 		else:
 			#print("Continue Search")
 			return self.find_noun_head(token.head)
-	
+
 
 	def find_negation_tag(self, adjective):
 		#print(f"Finding Negatation for Adjective: {adjective}")
@@ -101,7 +101,7 @@ class Rule_Based_ADSA:
 	def find_span_start(self, sent, token):
 		#for tok in sent:
 		#    print(f"{tok.i}: {tok} - {tok.pos_}")
-		#print(f"Start {token.i}: {token} - {token.pos_}")  
+		#print(f"Start {token.i}: {token} - {token.pos_}")
 		if token.i == sent.start or sent[token.i-1].pos_ == "PUNCT":
 			#print(token.i)
 			return token.i
@@ -112,14 +112,14 @@ class Rule_Based_ADSA:
 	def find_span_end(self, sent, token):
 		#for tok in sent:
 		#    print(f"{tok.i}: {tok} - {tok.pos_}")
-		#print(f"End {token.i}: {token} - {token.pos_}")        
+		#print(f"End {token.i}: {token} - {token.pos_}")
 		if token.i+1 == sent.end or sent[token.i+1].pos_ == "PUNCT":
 			#print(token.i+1)
 			return token.i+1
 		else:
 			#print(token.i+1)
 			return self.find_span_end(sent, sent[token.i+1])
-	
+
 
 	def match_topics(self, noun_token, adjective_token, topic_list, noun_keywords, adjective_keywords):
 
@@ -138,28 +138,28 @@ class Rule_Based_ADSA:
 		SENTI_MODEL = SENTI_MODEL
 		DEBUG = DEBUG
 
-		#Model    
+		#Model
 		doc = self.nlp(review)
 
 		topic_prediction = {'size'          : None,
 							'comfort'       : None,
 							'appearance'    : None,
 							'quality'       : None,
-							'price'         : None, 
+							'price'         : None,
 							'delivery'      : None}
 
 		topic_positive = {'size'          : 0.0,
 						'comfort'     	  : 0.0,
 						'appearance'  	  : 0.0,
 						'quality'     	  : 0.0,
-						'price'       	  : 0.0, 
+						'price'       	  : 0.0,
 						'delivery'    	  : 0.0}
-	
+
 		topic_total = {'size'             : 0.0,
 						'comfort'     	  : 0.0,
 						'appearance'  	  : 0.0,
 						'quality'     	  : 0.0,
-						'price'       	  : 0.0, 
+						'price'       	  : 0.0,
 						'delivery'    	  : 0.0}
 
 		sent_count = 0
@@ -171,7 +171,7 @@ class Rule_Based_ADSA:
 			pronouns = [tok for tok in sent if tok.pos_ == "PRON"]
 			nouns = [tok for tok in sent if tok.pos_ == "NOUN"]
 			negations = [tok for tok in sent if tok.dep_ == "neg"]
-			
+
 			if DEBUG:
 				print(f"Sentence {sent_count}: {sent}")
 				img = displacy.render(sent, style="dep", jupyter = False)
@@ -186,7 +186,7 @@ class Rule_Based_ADSA:
 			for adjective in adjectives:
 				isFound = False
 				topic = None
-				
+
 				try:
 					descriptor = ""
 					for child in adjective.children:
@@ -207,14 +207,14 @@ class Rule_Based_ADSA:
 								noun_subj = chunk
 							else:
 								isFound = True
-								noun_subj = noun             
+								noun_subj = noun
 
 					#Passive Voice (i.e. Colour of the dress was beautiful)
 					elif adjective.head.pos_ == "AUX" or adjective.head.pos_ == "VERB":
 						trace = f"Indirect Reference Detected for Adjective: {adjective}"
 						for child in adjective.head.children:
 							if child.pos_ == "NOUN" or child.pos_ == "PRON":
-								noun = child                      
+								noun = child
 								for chunk in sent.noun_chunks:
 									if chunk.root == child and adjective not in chunk:
 										isFound = True
@@ -222,7 +222,7 @@ class Rule_Based_ADSA:
 									else:
 										isFound = True
 										noun_subj = noun
-										
+
 					#Guessing when improper grammer is used (i.e. Colour of the dress was beautiful vs also dress colour beautiful)
 					else:
 						trace = f"Finding noun subject for Adjective: {adjective}\n"
@@ -248,7 +248,7 @@ class Rule_Based_ADSA:
 					topic = self.match_topics(self.nlp("I")[0], adjective, self.topic_list, self.noun_keywords, self.adjective_keywords)
 
 				if topic != None:
-					if noun_subj == None:                    
+					if noun_subj == None:
 						if SENTI_MODEL == 'logreg':
 							prediction = self.SA_TOAD.logreg_model(str(descriptor) + " " + str(topic), negation_tag)
 						elif SENTI_MODEL == 'svm':
@@ -262,7 +262,7 @@ class Rule_Based_ADSA:
 							prediction = self.SA_TOAD.SVM_model(str(descriptor) + " " + str(noun_subj), negation_tag)
 						elif SENTI_MODEL == 'spacy':
 							prediction = self.SA_TOAD.spacy_model(str(descriptor) + " " + str(noun_subj), negation_tag)
-						
+
 
 					descriptor_pair.append((descriptor, noun_subj, negation_tag, topic, prediction))
 
@@ -275,12 +275,12 @@ class Rule_Based_ADSA:
 		if DEBUG:
 			print(f"All descriptor_pair: {descriptor_pair}")
 			print("")
-		
+
 		for pair in descriptor_pair:
 			topic_total[pair[3]] += 1
 			if pair[4] == "Positive":
 				topic_positive[pair[3]] += 1
-				
+
 		for topic in self.topic_list:
 			if topic_total[topic] != 0 and (topic_positive[topic] / topic_total[topic]) >= 0.5:
 				topic_prediction[topic] = "Positive"
@@ -289,12 +289,12 @@ class Rule_Based_ADSA:
 			else:
 				topic_prediction[topic] = None
 
+		if DEBUG:
+			print(f"Review: {review}")
+			print(f"Topic_prediction: {topic_prediction}")
+			print("---------------------------------------------------------------")
+			print("")
 
-		print(f"Review: {review}")
-		print(f"Topic_prediction: {topic_prediction}")
-		print("---------------------------------------------------------------")
-		print("")
-		
 		return topic_prediction
 
 if __name__ == "__main__":
