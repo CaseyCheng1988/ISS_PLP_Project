@@ -1,5 +1,7 @@
 # Datasets
 
+Data_Source.txt - Link to Amazon dataset
+
 amazon_adsa_ner.jsonl - Annotated NER aspect spans from Amazon review dataset
 
 shopee_adsa_ner.jsonl - Annotated NER aspect spans from Shopee review dataset
